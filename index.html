@@ -6,7 +6,176 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css"
+      integrity="sha384-zCbKRCUGaJDkqS1kPbPd7TveP5iyJE0EjAuZQTgFLD2ylzuqKfdKlfG/eSrtxUkn"
+      crossorigin="anonymous"
+    />
+    <style>
+      img {
+        object-fit: cover;
+      }
+      .card {
+        object-fit: cover;
+      }
+    </style>
     <title>API Exercise</title>
   </head>
-  <body></body>
+  <body>
+    <h1 class="d-inline-block align-middle">Music Albums</h1>
+    <button class="btn btn-primary d-inline-block align-middle">
+      LOAD Pink Floyd Albums
+    </button>
+    <button id="loadOne" class="btnOne btn-primary">Load Daft Punk</button>
+    <button id="loadTwo" class="btnOne btn-primary">Load metallica</button>
+    <button class="btnOne btn-primary">Unique Albums</button>
+    <div class="container p-3 mb-5">
+      <div class="row"></div>
+    </div>
+    <script
+      src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js"
+      integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-fQybjgWLrvvRgtW6bFlB7jaZrFsaBXjsOMm/tB9LTS58ONXgqbR9W8oWht/amnpF"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      // 1. Pink floys
+      const options = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "28d51815f0msh1248e260c3be439p1a38fdjsnf15a045c1420",
+        },
+      };
+
+      const loadAlbums = () => {
+        fetch(
+          "https://striveschool-api.herokuapp.com/api/deezer/search?q=pink%20floyd",
+          options
+        )
+          .then((response) => response.json())
+          .then((songList) => {
+            const songs = document.querySelector(".container > .row");
+
+            for (let i = 0; i < songList.data.length; i++) {
+              const song = songList.data[i];
+
+              const col = document.createElement("div");
+              col.className = "col-12 col-sm-6 col-md-4 col-xl-3 mb-3 py-1";
+
+              col.innerHTML = ` <div class="card" >
+                                      <img src=${song.album.cover} class="card-img-top " alt= ${song.title}>
+                                      <div class="card-body">
+                                          <h5 class="card-title">${song.album.title}</h5>
+                                          <p class="card-text">${song.artist.name}</p>
+                                          <a href="#" class="btn btn-primary">${song.duration}</a>
+                                      </div>
+                                  </div> `;
+              songs.appendChild(col);
+            }
+          });
+      };
+
+      // 2. daft punk
+
+      const optionsOne = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "28d51815f0msh1248e260c3be439p1a38fdjsnf15a045c1420",
+        },
+      };
+
+      const loadAlbumsOne = () => {
+        fetch(
+          "https://striveschool-api.herokuapp.com/api/deezer/search?q=daft%20punk",
+          optionsOne
+        )
+          .then((response) => response.json())
+          .then((songList) => {
+            const grid = document.querySelector(".container > .row");
+
+            for (let i = 0; i < songList.data.length; i++) {
+              const songs = songList.data[i];
+
+              const colOne = document.createElement("div");
+              colOne.className = "col-12 col-sm-6 col-md-4 col-xl-3 mb-3 py-1";
+
+              colOne.innerHTML = ` <div class="card" >
+                                      <img src=${songs.album.cover} class="card-img-top" alt= ${songs.title}>
+                                      <div class="card-body">
+                                          <h5 class="card-title">${songs.album.title}</h5>
+                                          <p class="card-text">${songs.artist.name}</p>
+                                          <a href="#" class="btn btn-primary">${songs.duration}</a>
+                                      </div>
+                                  </div> `;
+              grid.appendChild(colOne);
+            }
+          });
+      };
+
+      // 3. daft punk
+
+      const optionsTwo = {
+        method: "GET",
+        headers: {
+          "X-RapidAPI-Host": "deezerdevs-deezer.p.rapidapi.com",
+          "X-RapidAPI-Key":
+            "28d51815f0msh1248e260c3be439p1a38fdjsnf15a045c1420",
+        },
+      };
+
+      const loadAlbumsTwo = () => {
+        fetch(
+          "https://striveschool-api.herokuapp.com/api/deezer/search?q=metallica",
+          optionsOne
+        )
+          .then((response) => response.json())
+          .then((songList) => {
+            const grids = document.querySelector(".container > .row");
+
+            for (let i = 0; i < songList.data.length; i++) {
+              const music = songList.data[i];
+
+              const colTwo = document.createElement("div");
+              colTwo.className = "col-12 col-sm-6 col-md-4 col-xl-3 mb-3 py-1";
+
+              colTwo.innerHTML = ` <div class="card" >
+                                      <img src=${music.album.cover} class="card-img-top" alt= ${music.title}>
+                                      <div class="card-body">
+                                          <h5 class="card-title">${music.album.title}</h5>
+                                          <p class="card-text">${music.artist.name}</p>
+                                          <a href="#" class="btn btn-primary">${music.duration}</a>
+                                      </div>
+                                  </div> `;
+              grids.appendChild(colTwo);
+            }
+          });
+      };
+
+      window.onload = () => {
+        const btn = document.querySelector("button");
+        const btnOne = document.getElementById("loadOne");
+        const btnTwo = document.getElementById("loadTwo");
+
+        btn.addEventListener("click", loadAlbums);
+        btnOne.addEventListener("click", loadAlbumsOne);
+        btnTwo.addEventListener("click", loadAlbumsTwo);
+      };
+
+      const displaySongs = () => {
+        const songsLists = document.getElementsByClassName("card-title");
+        const songTitles = [];
+        songsLists.push(songTitles);
+        console.log(songsLists);
+      };
+    </script>
+  </body>
 </html>
